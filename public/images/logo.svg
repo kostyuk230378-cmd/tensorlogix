@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="TensorLogix">
+  <defs>
+    <linearGradient id="tlx-green" x1="0.35" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#22ce71"/>
+      <stop offset="1" stop-color="#0a5a38"/>
+    </linearGradient>
+    <linearGradient id="tlx-blue" x1="0.45" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#0fa0b8"/>
+      <stop offset="1" stop-color="#0a2540"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="#f5f7fa"/>
+  <polygon points="497,140 178,565 497,650" fill="url(#tlx-green)"/>
+  <polygon points="527,140 846,565 527,650" fill="url(#tlx-blue)"/>
+  <text x="512" y="795" text-anchor="middle" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="150" font-weight="600" letter-spacing="4" fill="#0c2b3c">TensorLogix</text>
+</svg>

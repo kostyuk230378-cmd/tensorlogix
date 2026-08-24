@@ -170,3 +170,32 @@ model Lead {
   @@index([createdAt])
   @@map("leads")
 }
+
+// ============================================================
+// CMS (тикет ADMIN, решение #10 от 24.08.2026): динамические
+// скидки/акции/промокоды и базовые цены калькулятора.
+// ============================================================
+
+model Promotion {
+  id          String   @id @default(cuid())
+  title       String // название акции («Стартовая акция −10%»)
+  description String // подробные условия для страницы /promotions
+  discountPct Float    @default(0) // размер скидки, %
+  promoCode   String?  @unique // опциональный промокод для ручного ввода
+  active      Boolean  @default(true) // флаг из админки
+  startsAt    DateTime? // окно действия (null = без ограничения)
+  endsAt      DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active])
+  @@map("promotions")
+}
+
+model Setting {
+  key       String   @id // например "price_book" — переопределение базовых цен
+  value     Json // произвольная JSON-структура значения
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}

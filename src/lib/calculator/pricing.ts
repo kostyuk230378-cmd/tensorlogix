@@ -111,3 +111,38 @@ export function calculateQuote(s: CalculatorState): Quote {
     items,
   };
 }
+
+// ============================================================
+// Динамические скидки (control.md §Б, решение #10): ядро на лету
+// пересчитывает смету с учётом активных акций/промокодов из БД.
+// ============================================================
+
+export interface DiscountInfo {
+  pct: number;
+  label: string;
+  promoCode: string | null;
+}
+
+export interface FinalQuote extends Quote {
+  discountPct: number;
+  discountAmount: number;
+  finalPrice: number;
+  discountLabel: string | null;
+}
+
+/** Применяет активную скидку к смете (округление по правилам бухгалтерии — в ₽). */
+export function applyDiscount(quote: Quote, discount: DiscountInfo | null): FinalQuote {
+  const pct = discount?.pct ?? 0;
+  const discountAmount = Math.round((quote.totalPrice * pct) / 100);
+  return {
+    ...quote,
+    discountPct: pct,
+    discountAmount,
+    finalPrice: quote.totalPrice - discountAmount,
+    discountLabel: discount ? discount.label : null,
+  };
+}
+
+export function formatRub(value: number): string {
+  return `${value.toLocaleString("ru-RU")} ₽`;
+}

@@ -62,6 +62,18 @@ export interface CalculatorState {
   marketing: Record<MarketingId, boolean>;
 }
 
+// Стартовое состояние конфигуратора (UI-02)
+export const INITIAL_CALCULATOR_STATE: CalculatorState = {
+  siteType: "LANDING",
+  sitePayment: null,
+  siteLogistics: false,
+  tmaEnabled: false,
+  tmaPayment: null,
+  tmaLogistics: false,
+  adminPanel: false,
+  marketing: { YANDEX: false, GOOGLE: false, TELEGRAM_ADS: false, SOCIAL: false },
+};
+
 // Бизнес-правила динамических блоков (ТЗ §2)
 export const isCommerceSite = (t: SiteTypeId): boolean => t === "SHOP" || t === "MARKETPLACE";
 export const showSiteIntegrations = (s: CalculatorState): boolean => isCommerceSite(s.siteType);
