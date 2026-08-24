@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { Lead } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { leadInputSchema } from "@/lib/leads/schema";
 import { sendLeadNotification } from "@/lib/telegram";
@@ -25,42 +26,50 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
+  const leadData = {
+    siteType: data.siteType,
+    sitePayment: data.sitePayment ?? null,
+    siteLogistics: data.siteLogistics,
+    tmaEnabled: data.tmaEnabled,
+    tmaPayment: data.tmaPayment ?? null,
+    tmaLogistics: data.tmaLogistics,
+    adminPanel: data.adminPanel,
+    mktYandex: data.mktYandex,
+    mktGoogle: data.mktGoogle,
+    mktTelegramAds: data.mktTelegramAds,
+    mktSocial: data.mktSocial,
+    totalPrice: data.totalPrice,
+    totalDays: data.totalDays,
+    quoteSnapshot: data.quoteSnapshot,
+    contactName: data.contactName,
+    contactPhone: data.contactPhone,
+    contactEmail: data.contactEmail ?? null,
+  };
+
+  // До синхронизации с Supabase (БД пока недоступна) — локальный mock-режим:
+  // при ошибке записи заявка считается принятой и логируется (решение 24.08.2026).
+  let lead: Lead;
+  let mocked = false;
   try {
-    const lead = await prisma.lead.create({
-      data: {
-        siteType: data.siteType,
-        sitePayment: data.sitePayment ?? null,
-        siteLogistics: data.siteLogistics,
-        tmaEnabled: data.tmaEnabled,
-        tmaPayment: data.tmaPayment ?? null,
-        tmaLogistics: data.tmaLogistics,
-        adminPanel: data.adminPanel,
-        mktYandex: data.mktYandex,
-        mktGoogle: data.mktGoogle,
-        mktTelegramAds: data.mktTelegramAds,
-        mktSocial: data.mktSocial,
-        totalPrice: data.totalPrice,
-        totalDays: data.totalDays,
-        quoteSnapshot: data.quoteSnapshot,
-        contactName: data.contactName,
-        contactPhone: data.contactPhone,
-        contactEmail: data.contactEmail ?? null,
-      },
-    });
-
-    // Уведомление не должно ронять сохранение лида
-    try {
-      await sendLeadNotification(lead);
-    } catch (notifyError) {
-      console.error("[leads] Ошибка Telegram-уведомления:", notifyError);
-    }
-
-    return NextResponse.json({ ok: true, id: lead.id }, { status: 201 });
+    lead = await prisma.lead.create({ data: leadData });
   } catch (dbError) {
-    console.error("[leads] Ошибка записи в БД:", dbError);
-    return NextResponse.json(
-      { ok: false, error: "Не удалось сохранить заявку. Попробуйте позже." },
-      { status: 500 }
-    );
+    console.error("[leads][MOCK] БД недоступна — заявка принята локально:", dbError);
+    mocked = true;
+    lead = {
+      ...leadData,
+      id: crypto.randomUUID(),
+      status: "NEW",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as unknown as Lead;
   }
+
+  // Уведомление не должно ронять сохранение лида
+  try {
+    await sendLeadNotification(lead);
+  } catch (notifyError) {
+    console.error("[leads] Ошибка Telegram-уведомления:", notifyError);
+  }
+
+  return NextResponse.json({ ok: true, id: lead.id, mocked }, { status: 201 });
 }

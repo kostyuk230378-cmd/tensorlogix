@@ -21,9 +21,13 @@ const esc = (v: string) =>
 export async function sendLeadNotification(lead: Lead): Promise<void> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
+  const text = formatLeadMessage(lead);
+
+  // Mock-режим (решение заказчика от 24.08.2026): пока .env не заполнен,
+  // уведомление логируется в консоль вместо отправки в Telegram Bot API.
   if (!token || !chatId) {
-    console.warn(
-      "[telegram] TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID не заданы — уведомление пропущено"
+    console.log(
+      `[telegram][MOCK] Уведомление о лиде ${lead.id}:\n${text.replace(/<[^>]+>/g, "")}`
     );
     return;
   }
@@ -33,7 +37,7 @@ export async function sendLeadNotification(lead: Lead): Promise<void> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: chatId,
-      text: formatLeadMessage(lead),
+      text,
       parse_mode: "HTML",
     }),
   });
