@@ -23,7 +23,8 @@
 - [x] git-репозиторий инициализирован
 - [x] `.claude/skills/grill-me`, `.claude/skills/handoff` — алгоритмы скачаны с GitHub
 - [x] impeccable CLI подключается через `npx impeccable` (detect / install / update)
-- [ ] Prisma + подключение к Supabase (после ПРОЖАРКИ, когда появится схема данных)
+- [x] Prisma ORM 7 + базовая схема (User/Category/Product/Order/OrderItem), клиент, `src/lib/prisma.ts`
+- [ ] **БЛОКЕР:** таблицы в Supabase не развёрнуты — `P1001: Can't reach database server` (проект, вероятно, на паузе; нужен Restore в дашборде → `npx prisma migrate dev --name init`)
 - [ ] @telegram-apps/sdk-react (после утверждения экрана-точки входа)
 - [ ] framer-motion (добавляется вместе с первым анимированным компонентом)
 - [ ] shadcn/ui init (перед первым UI-компонентом)

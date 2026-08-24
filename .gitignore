@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prisma — сгенерированный клиент не коммитим, восстанавливается через `npm run postinstall`
+/src/generated/prisma
+
+/src/generated/prisma
