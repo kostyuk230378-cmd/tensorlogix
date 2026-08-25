@@ -1,0 +1,21 @@
+{
+  "detector": {
+    "enabled": true,
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "src/generated/**",
+      "node_modules/**",
+      ".next/**"
+    ],
+    "ignoreValues": [],
+    "designSystem": {
+      "enabled": true
+    }
+  },
+  "project": {
+    "name": "TensorLogix",
+    "framework": "next",
+    "styling": "tailwind",
+    "uiLibrary": "shadcn"
+  }
+}

@@ -15,6 +15,7 @@
 
 /* Хромированный текст (полированная сталь) */
 .tlx-chrome {
+  /* impeccable-disable gradient-text: intentional brand chrome effect for hero headings */
   background: linear-gradient(180deg, #f8fafc 0%, #94a3b8 38%, #e2e8f0 52%, #475569 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -52,6 +53,7 @@
 
 /* Тонкая инженерная сетка фона */
 .tlx-grid-bg {
+  /* impeccable-disable codex-grid-background: intentional brand engineering grid for hero section */
   background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
   background-size: 28px 28px;
 }

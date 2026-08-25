@@ -50,3 +50,6 @@ dev-server.err.log
 
 # context-guard: runtime token budget (не коммитим)
 .cline/token-budget.json
+
+# impeccable: local overrides (не коммитим)
+.impeccable/config.local.json
