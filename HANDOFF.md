@@ -1,7 +1,7 @@
 # HANDOFF — TensorLogix / NEXTJS_TMA_MALL_V10_1 (PIVOT v2.0)
 
 > Обновлено: 24.08.2026 — PIVOT v2.0: DEEP DARK + open-source скилл @tensorlogix/ui-core (MIT);
-> лендинг пересобран (блоки 0–4); коммит `feat(open-source): …` в работе.
+> лендинг пересобран (блоки 0–4); коммит `b03b587` зафиксирован и ОПУБЛИКОВАН на GitHub.
 
 ## Что строим
 - Единый Fullstack-монорепозиторий Next.js (App Router): сайт + TMA + админка.
@@ -24,17 +24,16 @@
 - [x] Качество: `tsc --noEmit` чисто; `eslint src` чисто; контраст-патч (zinc-300/400);
   мобильный словознак исправлен (не обрезается на 390px); скриншоты + новый baseline
 - [x] Память: control.md / SPECIFICATION.md / DESIGN.md / tasks переписаны под v2.0
-- [ ] Коммит `feat(open-source): init tensorlogix-ui core and rebuild landing to deep-dark`
-- [ ] GH-1: паблиш на GitHub (см. ниже)
+- [x] Коммит `b03b587 feat(open-source): init tensorlogix-ui core and rebuild landing to deep-dark`
+- [x] GH-1: паблиш на GitHub — https://github.com/kostyuk230378-cmd/tensorlogix (public, ветка `main`)
 - [ ] От заказчика: Restore Supabase → `npx prisma db push`; TELEGRAM_BOT_TOKEN/CHAT_ID;
   растровый logo.png; реальные контакты владельца
 
-## GitHub (ЭТАП 3) — инструкция
-`gh` CLI в системе НЕ установлен, remote не настроен. Варианты:
-1. `winget install GitHub.cli` → `gh auth login` →
-   `gh repo create tensorlogix --public --source=. --push`
-2. Или в VS Code: Command Palette → «Git: Publish to GitHub» (использует встроенную авторизацию),
-   затем в терминале: `git push -u origin master`.
+## GitHub (ЭТАП 3) — ВЫПОЛНЕНО ✅
+- Репозиторий: **https://github.com/kostyuk230378-cmd/tensorlogix** (public, default branch `main`).
+- `gh` CLI 2.98.0 установлен (`C:\Program Files\GitHub CLI\gh.exe`), авторизован
+  (аккаунт `kostyuk230378-cmd`, scopes: repo/gist/read:org, протокол https).
+- Remote `origin` настроен, `main` трекает `origin/main`, коммит `b03b587` запушен.
 
 ## Ключевые решения
 - #12 PIVOT v2.0 (24.08.2026): DEEP DARK CMS; open-source скилл MIT; калькулятор v2; паблиш.
@@ -42,6 +41,8 @@
   low-contrast — захват во время enter-анимаций (статичный текст zinc-300 на #04060b ≥ 10:1).
 
 ## Следующие шаги
-1. Коммит feat(open-source) + GH-1 паблиш.
+1. Аппрув заказчика: DEEP DARK лендинг v2 + публичный репозиторий.
 2. ADM-1/ADM-2: CONTROL TERMINAL (CRM: статусы в клик, экспорт CSV/Excel; CMS: Settings/Promotions).
 3. `(tma)` демонстратор; TMA-тема через @telegram-apps/sdk-react (установить перед тикетом).
+4. От заказчика: Restore Supabase → `npx prisma db push`; TELEGRAM_BOT_TOKEN/CHAT_ID;
+   растровый logo.png; реальные контакты владельца.
