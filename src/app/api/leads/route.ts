@@ -5,7 +5,7 @@ import { leadInputSchema } from "@/lib/leads/schema";
 import { sendLeadNotification } from "@/lib/telegram";
 
 /**
- * POST /api/leads — фиксация заявки со смарт-калькулятора (ТЗ раздел 6).
+ * POST /api/leads — фиксация заявки v2 (ТЗ v2.0 §6).
  * Валидация Zod → намертво в таблицу leads → мгновенное уведомление в Telegram.
  */
 export async function POST(request: Request) {
@@ -24,30 +24,21 @@ export async function POST(request: Request) {
     );
   }
 
-  const data = parsed.data;
-
+  const d = parsed.data;
   const leadData = {
-    siteType: data.siteType,
-    sitePayment: data.sitePayment ?? null,
-    siteLogistics: data.siteLogistics,
-    tmaEnabled: data.tmaEnabled,
-    tmaPayment: data.tmaPayment ?? null,
-    tmaLogistics: data.tmaLogistics,
-    adminPanel: data.adminPanel,
-    mktYandex: data.mktYandex,
-    mktGoogle: data.mktGoogle,
-    mktTelegramAds: data.mktTelegramAds,
-    mktSocial: data.mktSocial,
-    totalPrice: data.totalPrice,
-    totalDays: data.totalDays,
-    quoteSnapshot: data.quoteSnapshot,
-    contactName: data.contactName,
-    contactPhone: data.contactPhone,
-    contactEmail: data.contactEmail ?? null,
+    config: {
+      products: d.products,
+      addons: d.addons,
+      marketing: d.marketing,
+    },
+    totalPrice: d.totalPrice,
+    totalDays: d.totalDays,
+    contactName: d.contactName,
+    contactChannel: d.contactChannel,
+    details: d.details ?? null,
   };
 
-  // До синхронизации с Supabase (БД пока недоступна) — локальный mock-режим:
-  // при ошибке записи заявка считается принятой и логируется (решение 24.08.2026).
+  // До синхронизации с Supabase — mock-режим: заявка принимается локально.
   let lead: Lead;
   let mocked = false;
   try {

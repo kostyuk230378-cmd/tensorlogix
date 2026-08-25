@@ -1,38 +1,47 @@
-# HANDOFF — TensorLogix / NEXTJS_TMA_MALL_V10_1
+# HANDOFF — TensorLogix / NEXTJS_TMA_MALL_V10_1 (PIVOT v2.0)
 
-> Обновлено: 24.08.2026 — завершён этап ИНИЦИАЛИЗАЦИЯ, статус конвейера: ОЖИДАНИЕ_ПРОЖАРКИ
+> Обновлено: 24.08.2026 — PIVOT v2.0: DEEP DARK + open-source скилл @tensorlogix/ui-core (MIT);
+> лендинг пересобран (блоки 0–4); коммит `feat(open-source): …` в работе.
 
 ## Что строим
-- Единый Fullstack-монорепозиторий Next.js (App Router): сайт + Telegram Mini App (MALL V10).
-- ТЗ ещё НЕ зафиксировано — будет записано в `SPECIFICATION.md` после ПРОЖАРКИ (/grill-me).
+- Единый Fullstack-монорепозиторий Next.js (App Router): сайт + TMA + админка.
+- v2.0: собственный open-source скилл `@tensorlogix/ui-core` (MIT) + DEEP DARK лендинг +
+  паблиш всего проекта на GitHub (`tensorlogix`) как Fullstack-шаблон.
+- АННУЛИРОВАНО (решение #12): LIGHT MATRIX, мультиарендность, калькулятор v1, промо-баннер.
 
 ## Прогресс
-- [x] Next.js-каркас (TypeScript, Tailwind CSS, ESLint, src/), git-репозиторий инициализирован
-- [x] `tasks/tg-app.md` — стек, состояние каркаса и критерии проверок (DoD)
-- [x] Скиллы `grill-me` и `handoff` скачаны с GitHub → `.claude/skills/`
-- [x] Impeccable установлен в проект (`.claude`, `.agents`, `.kiro`, `.pi`), хуки детектора подключены, `impeccable detect` проверен (0 находок на шаблоне)
-- [x] `control.md` → АВТОПИЛОТ (24.08.2026): прожарка завершена, ТЗ v1.0 утверждено заказчиком
-- [x] Prisma 7.9.1 + модель `Lead` (конфигурация калькулятора, маркетинг, смета, контакты), клиент через `PrismaPg`-адаптер, `.env` (+TELEGRAM_*)
-- [x] Бэкенд лидов: `POST /api/leads` (Zod + бизнес-правила ТЗ §2), `src/lib/telegram.ts` — уведомления через Bot API
-- [x] Архитектура калькулятора: `src/lib/calculator/types.ts` + `pricing.ts`
-- [x] 24.08.2026: заказчик утвердил ценовую сетку (визитка 15к/3д … маркетплейс 150к/30д; интеграции единым пунктом: сайт +20к/+2д, TMA +15к/+2д; модуль TMA +40к/+5д; терминал +25к/+4д; продвижение +10к/+3д за площадку) → `pricing.ts`
-- [x] 24.08.2026: блокеры сняты — mock-режим: `POST /api/leads` отдаёт 201 без БД (`mocked: true`), Telegram-уведомления логируются в `console.log` до заполнения .env
-- [x] Контакты-заглушки в `src/lib/site-config.ts`: +7 (999) 000-00-00, t.me/tensorlogix_ceo, info@tensorlogix.ru
-- [x] UI-01 готов (коммит ebe4907): группа `(site)`, Header с логотипом (`public/logo.svg` — заглушка «две градиентные пирамиды», оригинал даст заказчик), Hero Space Grotesk во всю ширину (text-[10.5vw], tracking-widest), DigitalRain-canvas на белом (светло-стальные дорожки, prefers-reduced-motion), шрифты Inter + Space Grotesk, LIGHT MATRIX в globals.css
-- [x] /test-driven: `impeccable detect` = 0 (антипаттерн gradient-text устранён), Playwright-скриншоты 390×844 и 1440×900 → `screenshots/` + эталон в `screenshots/baseline/`
-- [x] `SPECIFICATION.md` (ТЗ v1.0) + `DESIGN.md` (LIGHT MATRIX) зафиксированы
-- [ ] **СТОП-ТОЧКА UI-01:** ждём одобрения визуального стиля заказчиком
-- [ ] Перед UI-02: `shadcn/ui init`, @telegram-apps/sdk-react (framer-motion и zod уже установлены)
-- [ ] Supabase: `npx prisma db push` после Restore проекта (BACK-2)
+- [x] ЭТАП 1: `src/lib/tensorlogix-ui/` — `BipyramidCore` (Canvas-3D удлинённая бипирамида,
+  нейросвязи, hover-реакция скорости/свечения, prefers-reduced-motion), `NeonCTA`,
+  `styles.css` (neon-glow, хром/сталь, лучи `tlx-beam`), README EN+RU, LICENSE MIT
+- [x] ЭТАП 2: DEEP DARK тема (globals/layout); блок 0 хедер (лого + хромированный словознак,
+  высота 5 строк); блок 1 Hero (неон-текст, пирамида, лучи к «Терминалу управления», CTA-скролл);
+  блок 2 хаб (5 вкладок Framer Motion, копия боли/решение/этапы из ТЗ v2.0);
+  блок 3 калькулятор v2 (3 шага чекбоксов, табло «от … ₽ / от … дн», BottomSheet в TMA-режиме);
+  блок 4 подвал (форма [Имя, TG/Телефон, Детали] → POST /api/leads mock + console.log,
+  оферта, контакты-заглушки)
+- [x] Бэкенд v2: Prisma `Lead` (config Json, итоги, контакты) + удаление каркаса маркетплейса;
+  Zod v2; telegram-уведомления v2; `Promotion`/`Setting` сохранены для CMS; `prisma generate` OK
+- [x] Качество: `tsc --noEmit` чисто; `eslint src` чисто; контраст-патч (zinc-300/400);
+  мобильный словознак исправлен (не обрезается на 390px); скриншоты + новый baseline
+- [x] Память: control.md / SPECIFICATION.md / DESIGN.md / tasks переписаны под v2.0
+- [ ] Коммит `feat(open-source): init tensorlogix-ui core and rebuild landing to deep-dark`
+- [ ] GH-1: паблиш на GitHub (см. ниже)
+- [ ] От заказчика: Restore Supabase → `npx prisma db push`; TELEGRAM_BOT_TOKEN/CHAT_ID;
+  растровый logo.png; реальные контакты владельца
+
+## GitHub (ЭТАП 3) — инструкция
+`gh` CLI в системе НЕ установлен, remote не настроен. Варианты:
+1. `winget install GitHub.cli` → `gh auth login` →
+   `gh repo create tensorlogix --public --source=. --push`
+2. Или в VS Code: Command Palette → «Git: Publish to GitHub» (использует встроенную авторизацию),
+   затем в терминале: `git push -u origin master`.
 
 ## Ключевые решения
-- `impeccable` = npm-пакет (impeccable.style, Apache-2.0). Пункт протокола «impeccable init» выполняется как `/impeccable init` установленного скилла (интервью → PRODUCT.md/DESIGN.md); запускать на первом UI-шаге после ПРОЖАРКИ, т.к. сейчас продуктного контекста ещё нет.
-- Скиллы живут на уровне проекта (`.claude/skills/`) и коммитятся в репозиторий.
-- `.claude/settings.local.json` (хуки детектора) коммитим — это локальные правила контроля проекта.
-- 24.08.2026: фундамент концепции утверждён заказчиком → `SPECIFICATION.md`: TensorLogix = IT-агентство полного цикла + B2B-платформа «Сайт + TMA» с Единым кабинетом; интеграции ЮKassa/Т-Банк/СДЭК; демо-TMA под кейс «Агентство Интеллектуальных Игр»; ядро ЦА — селлеры.
+- #12 PIVOT v2.0 (24.08.2026): DEEP DARK CMS; open-source скилл MIT; калькулятор v2; паблиш.
+- Impeccable-принятия: overused-font (Inter/Space Grotesk — стек .clinerules); часть
+  low-contrast — захват во время enter-анимаций (статичный текст zinc-300 на #04060b ≥ 10:1).
 
 ## Следующие шаги
-1. [P0] **СТОП-ТОЧКА UI-01** — одобрение заказчиком визуального стиля/анимации; правки вносятся патчами до одобрения
-2. [P1] UI-02: умный калькулятор (шаги 1–6, Framer Motion, BottomSheet)
-3. [P1] От заказчика: Restore Supabase → `npx prisma db push` (BACK-2); реальные TELEGRAM_BOT_TOKEN/CHAT_ID; оригинальный файл логотипа взамен `public/logo.svg`
-4. [P2] Далее по `tasks/avtopilot-tickets.md`: UI-03…UI-10, BACK-5
+1. Коммит feat(open-source) + GH-1 паблиш.
+2. ADM-1/ADM-2: CONTROL TERMINAL (CRM: статусы в клик, экспорт CSV/Excel; CMS: Settings/Promotions).
+3. `(tma)` демонстратор; TMA-тема через @telegram-apps/sdk-react (установить перед тикетом).

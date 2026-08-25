@@ -1,0 +1,57 @@
+/* ============================================================
+   @tensorlogix/ui-core — MIT (c) 2026 TensorLogix
+   DEEP DARK neon-утилиты: свечения, хром/сталь, лучи, панели.
+   ============================================================ */
+
+/* Неоновые свечения текста (зелёный / синий градиенты бренда) */
+.tlx-neon-green {
+  color: #d1fae5;
+  text-shadow: 0 0 6px rgba(34, 206, 113, 0.6), 0 0 22px rgba(34, 206, 113, 0.3);
+}
+.tlx-neon-blue {
+  color: #e0f2fe;
+  text-shadow: 0 0 6px rgba(14, 165, 233, 0.6), 0 0 22px rgba(14, 165, 233, 0.3);
+}
+
+/* Хромированный текст (полированная сталь) */
+.tlx-chrome {
+  background: linear-gradient(180deg, #f8fafc 0%, #94a3b8 38%, #e2e8f0 52%, #475569 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Стальная панель терминала */
+.tlx-panel {
+  background: linear-gradient(160deg, rgba(148, 163, 184, 0.1), rgba(2, 6, 12, 0.72) 55%);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.08), 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+.tlx-steel-border {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* Неоновое свечение CTA и интерактивных элементов */
+.tlx-cta {
+  box-shadow: 0 0 12px rgba(34, 206, 113, 0.35), 0 0 42px rgba(14, 165, 233, 0.18);
+}
+.tlx-cta:hover {
+  box-shadow: 0 0 18px rgba(34, 206, 113, 0.55), 0 0 64px rgba(14, 165, 233, 0.3);
+}
+
+/* Интерактивные лучи, расходящиеся от граней пирамиды */
+.tlx-beam {
+  stroke-dasharray: 6 10;
+  animation: tlx-dash 2.6s linear infinite;
+}
+@keyframes tlx-dash {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+
+/* Тонкая инженерная сетка фона */
+.tlx-grid-bg {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+}

@@ -1,35 +1,27 @@
-# АВТОПИЛОТ — тикеты по ТЗ v1.0 (от 24.08.2026)
+# АВТОПИЛОТ v2.0 — тикеты PIVOT (от 24.08.2026)
 
-Роли: `/swe-agent` пишет, `/test-driven` лечит + `impeccable detect` + Playwright-регрессия,
+Роли: `/swe-agent` пишет, `/test-driven` лечит (`impeccable detect`, `tsc --noEmit`, Playwright),
 `/refactor` чистит, `/doc-gen` документирует, `/git-flow` коммитит.
-Фронтенд — строго ОДИН компонент за цикл со СТОП-ТОЧКОЙ (скриншот в чат → ждём одобрения).
 
-## Бэкенд (автономно)
-- [x] BACK-1: модель `Lead` в `prisma/schema.prisma` (конфигурация калькулятора, маркетинг, смета, контакты, статусы)
-- [ ] BACK-2: накатить схему в Supabase (`npx prisma db push`) — **БЛОКЕР: БД недоступна (P1001), ждём Restore проекта заказчиком**
-- [x] BACK-3: `POST /api/leads` — Zod + бизнес-правила динамических блоков (ТЗ §2) + запись в `leads`
-- [x] BACK-4: Telegram-уведомления о новых лидах (`TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` в `.env`)
-- [ ] BACK-5: `GET /api/leads` с фильтрами для CRM-таблицы админки
+## ЭТАП 1 — Open-source скилл @tensorlogix/ui-core (MIT)
+- [x] OS-1: `src/lib/tensorlogix-ui/` — BipyramidCore (Canvas-3D, нейросвязи, hover-реакция)
+- [x] OS-2: styles.css (neon-glow, хром/сталь, лучи) + NeonCTA + index.ts
+- [x] OS-3: README (EN+RU) + LICENSE MIT
 
-## Фронтенд (интерактивно, по одному компоненту со стоп-точкой)
-- [x] UI-01: каркас `(site)` + LIGHT MATRIX фон + Hero + оригинальный логотип (утверждено заказчиком 24.08.2026)
-- [ ] UI-02: смарт-калькулятор — математическое ядро (пересчёт скидок из Promotions на лету) + шаги 1–6 + живая смета + BottomSheet (ТЕКУЩИЙ ЦИКЛ)
-- [ ] UI-03: симулятор — 3 вкладки (Дизайн Сайта / Дизайн Mini App / демо-терминал с Drag-and-Drop)
-- [ ] UI-04: фиксация сметы + форма захвата → `POST /api/leads` + оферта + блок прямых контактов
-- [ ] UI-05: динамический промо-баннер в Hero/Header (Framer Motion) + страница `(site)/promotions`
-- [ ] UI-06: DigitalRain v2 — дорожки-слова AI/TMA/SQL/NEXTJS/SaaS/CRM + рассеивание в радиусе 100px от курсора
-- [ ] UI-07: `(admin)` CRM-терминал: лиды, статусы «Новый/В работе/Завершен» в один клик, экспорт CSV/Excel в один клик
-- [ ] UI-08: `(admin)` CMS: базовые цены + скидки/акции/промокоды → `Settings`/`Promotions` (Supabase)
-- [ ] UI-09: `(tma)` мини-апп-демонстратор собственного продукта
+## ЭТАП 2 — DEEP DARK лендинг
+- [ ] DD-0: хедер (брендовый блок 5 строк) + глобальная тёмная тема (ТЕКУЩИЙ ЦИКЛ)
+- [ ] DD-1: Hero (неон-текст + пирамида + лучи к терминалу + CTA)
+- [ ] DD-2: хаб экосистемы (5 вкладок, боли/решение/этапы)
+- [ ] DD-3: калькулятор v2 (3 шага, табло «от…», BottomSheet)
+- [ ] DD-4: подвал (форма → /api/leads mock, оферта, контакты)
+- [ ] DD-5: бэкенд v2: Lead-схема (config Json), Zod, telegram-уведомления
 
-## Бэкенд CMS/CRM (автономно, после UI-02)
-- [x] BACK-6: `GET /api/promotions` — активные акции (Prisma → mock до Restore Supabase)
-- [ ] BACK-7: `PATCH /api/leads/[id]` — смена статуса лида из CRM в один клик
-- [ ] BACK-8: `GET /api/leads/export` — экспорт базы контактов CSV/Excel в один клик
-- [ ] BACK-9: CMS-эндпоинты записи цен/акций в `Settings`/`Promotions`
+## ЭТАП 3 — GitHub
+- [ ] GH-1: создать публичный репозиторий `tensorlogix` (gh/VS Code) + первый пуш всего проекта
 
-## Открытые вопросы к заказчику
-1. **Restore проекта Supabase** — без него таблицы не развернуть (P1001); до того — mock-режим.
-2. **TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID** — заполнить `.env` (токен у @BotFather).
-3. **Растровый оригинал логотипа** — векторная реплика интегрирована; файл logo.png положить в `public/images/` при возможности.
-4. **Реальные контакты владельца** — заменить заглушки в `src/lib/site-config.ts`.
+## Будущее (админка CONTROL TERMINAL)
+- [ ] ADM-1: CRM (статусы в клик, экспорт CSV/Excel); ADM-2: CMS (Settings/Promotions)
+
+## Открытые вопросы
+1. Restore Supabase → `npx prisma db push`; 2. TELEGRAM_*; 3. растровый logo.png;
+4. реальные контакты владельца; 5. установка `gh` CLI для автопаблиша.

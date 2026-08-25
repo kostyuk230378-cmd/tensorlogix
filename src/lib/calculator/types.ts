@@ -1,81 +1,38 @@
-// Доменные типы смарт-калькулятора (ТЗ v1.0, разделы 2–3).
-// Константы значений зеркалят enum'ы prisma/schema.prisma — менять синхронно.
+// Доменные типы калькулятора v2 (ТЗ v2.0 §5, PIVOT от 24.08.2026).
 
-export const SITE_TYPES = [
-  "VISIT_CARD",
-  "LANDING",
-  "PRESENTATION",
-  "SHOP",
-  "MARKETPLACE",
+export const PRODUCTS = [
+  { id: "TMA", label: "Telegram Mini App", price: 40_000, days: 5 },
+  { id: "SITE", label: "Корпоративный сайт / Лендинг", price: 30_000, days: 5 },
+  { id: "SHOP", label: "Интернет-магазин", price: 80_000, days: 14 },
 ] as const;
-export type SiteTypeId = (typeof SITE_TYPES)[number];
+export type ProductId = (typeof PRODUCTS)[number]["id"];
 
-export const SITE_TYPE_LABELS: Record<SiteTypeId, string> = {
-  VISIT_CARD: "Визитка",
-  LANDING: "Лендинг",
-  PRESENTATION: "Презентационный сайт",
-  SHOP: "Магазин",
-  MARKETPLACE: "Большой маркетплейс",
-};
+export const ADDONS = [
+  {
+    id: "TERMINAL",
+    label: "Интеграция Терминала автономного управления",
+    price: 25_000,
+    days: 4,
+  },
+  { id: "AI_AGENT", label: "Внедрение ИИ-агента", price: 30_000, days: 6 },
+  { id: "CRM_SYNC", label: "Синхронизация с CRM и внешними БД", price: 15_000, days: 3 },
+] as const;
+export type AddonId = (typeof ADDONS)[number]["id"];
 
-// Платёжные шлюзы сайта (блок 2)
-export const PAYMENT_GATEWAYS = ["YOOKASSA", "TBANK"] as const;
-export type PaymentGatewayId = (typeof PAYMENT_GATEWAYS)[number];
-export const PAYMENT_GATEWAY_LABELS: Record<PaymentGatewayId, string> = {
-  YOOKASSA: "ЮKassa",
-  TBANK: "Т-Банк",
-};
+export const MARKETING = [
+  { id: "SMM", label: "Комплексный SMM и упаковка", price: 15_000, days: 3 },
+  { id: "ADS", label: "Настройка рекламного трафика", price: 10_000, days: 2 },
+] as const;
+export type MarketingId = (typeof MARKETING)[number]["id"];
 
-// Способы оплаты в Mini App (блок 4)
-export const TMA_PAYMENTS = ["CARDS", "TELEGRAM_STARS"] as const;
-export type TmaPaymentId = (typeof TMA_PAYMENTS)[number];
-export const TMA_PAYMENT_LABELS: Record<TmaPaymentId, string> = {
-  CARDS: "Карты",
-  TELEGRAM_STARS: "Telegram Stars",
-};
-
-// Модуль интернет-маркетинга (раздел 3 ТЗ)
-export const MARKETING_OPTIONS = ["YANDEX", "GOOGLE", "TELEGRAM_ADS", "SOCIAL"] as const;
-export type MarketingId = (typeof MARKETING_OPTIONS)[number];
-export const MARKETING_LABELS: Record<MarketingId, string> = {
-  YANDEX: "Яндекс (Директ, Поиск)",
-  GOOGLE: "Google (SEO)",
-  TELEGRAM_ADS: "Реклама в Telegram",
-  SOCIAL: "Продвижение в соцсетях",
-};
-
-export interface QuoteItem {
-  item: string;
-  price: number;
-  days: number;
-}
-
-// Полное состояние конфигуратора (общий React State калькулятора и симулятора)
 export interface CalculatorState {
-  siteType: SiteTypeId;
-  sitePayment: PaymentGatewayId | null;
-  siteLogistics: boolean;
-  tmaEnabled: boolean;
-  tmaPayment: TmaPaymentId | null;
-  tmaLogistics: boolean;
-  adminPanel: boolean;
+  products: Record<ProductId, boolean>;
+  addons: Record<AddonId, boolean>;
   marketing: Record<MarketingId, boolean>;
 }
 
-// Стартовое состояние конфигуратора (UI-02)
 export const INITIAL_CALCULATOR_STATE: CalculatorState = {
-  siteType: "LANDING",
-  sitePayment: null,
-  siteLogistics: false,
-  tmaEnabled: false,
-  tmaPayment: null,
-  tmaLogistics: false,
-  adminPanel: false,
-  marketing: { YANDEX: false, GOOGLE: false, TELEGRAM_ADS: false, SOCIAL: false },
+  products: { TMA: false, SITE: false, SHOP: false },
+  addons: { TERMINAL: false, AI_AGENT: false, CRM_SYNC: false },
+  marketing: { SMM: false, ADS: false },
 };
-
-// Бизнес-правила динамических блоков (ТЗ §2)
-export const isCommerceSite = (t: SiteTypeId): boolean => t === "SHOP" || t === "MARKETPLACE";
-export const showSiteIntegrations = (s: CalculatorState): boolean => isCommerceSite(s.siteType);
-export const showTmaIntegrations = (s: CalculatorState): boolean =>
-  s.tmaEnabled && isCommerceSite(s.siteType);
