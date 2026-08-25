@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "impeccable": "npx impeccable detect src/",
+    "impeccable:json": "npx impeccable detect --json src/"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
