@@ -47,3 +47,6 @@ next-env.d.ts
 
 dev-server.log
 dev-server.err.log
+
+# context-guard: runtime token budget (не коммитим)
+.cline/token-budget.json

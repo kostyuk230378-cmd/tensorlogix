@@ -1,0 +1,9 @@
+# Cline ignore — блокирует чтение тяжёлых папок в контекст (context economy).
+# Обязателен в каждой сессии (control.md ЭТАП 0, .clinerules §0).
+node_modules/
+.next/
+dist/
+build/
+*.log
+.git/
+screenshots/

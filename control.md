@@ -1,10 +1,23 @@
 # СЕРВИСНЫЙ ПУЛЬТ УПРАВЛЕНИЯ КОНВЕЙЕРОМ
 
-Текущая задача: NEXTJS_TMA_MALL_V10_1 → PIVOT v2.0 (24.08.2026)
+Текущая задача: NEXTJS_TMA_MALL_V10_1 → PIVOT v3.0 (24.08.2026, DeepSeek-v4-Pro)
 Текущий статус: АВТОПИЛОТ
-Концепция: **DEEP DARK CMS** + open-source скилл `@tensorlogix/ui-core` (MIT).
-АННУЛИРОВАНО 24.08.2026: LIGHT MATRIX, мультиарендность, старый калькулятор (UI-02), промо-баннер.
+Концепция: **DEEP DARK CMS** + собственный open-source скилл `@tensorlogix/ui-core` (MIT).
+АННУЛИРОВАНО 24.08.2026: LIGHT MATRIX, мультиарендность, сторонние платные пакеты, промо-баннер, старый калькулятор.
+Защита контекста: `.clineignore` + `src/lib/context-guard/token-router.ts` (4-уровневый роутер моделей, порог 1M).
 Паблиш: публичный GitHub-репозиторий `tensorlogix` — весь проект как Fullstack-шаблон.
+
+## ЭТАП 0 — Защита контекста и токен-роутер (context-guard, MIT)
+- `.clineignore` (корень): `node_modules/`, `.next/`, `dist/`, `build/`, `*.log`, `.git/`, `screenshots/`.
+- Жёсткий регламент headroom (`.clinerules` §0): длинные логи → `headroom compress` до попадания в контекст.
+- `src/lib/context-guard/token-router.ts` — локальный прокси/интерцептор: персистентный бюджет токенов
+  сессии (`.cline/token-budget.json`), порог **1 000 000** → автоподмена модели на эконом-уровень.
+- 4-уровневая иерархия моделей (квоты владельца):
+  - УРОВЕНЬ 1 Core: `deepseek-v4-pro-0813` · `deepseek-v4-pro` · `qwen3.7-max` · `qwen-max` · `qwen3-max`
+  - УРОВЕНЬ 2 Эконом: `deepseek-v4-flash` · `deepseek-v4-flash-0731` · `kimi-k3` · `kimi-k2.7-code` ·
+    `qwen3.7-plus` · `qwen3.7-flash` · `qwen3-coder-plus` · `qwen3.6-plus` · `glm-5.2` · `glm-5.1`
+  - УРОВЕНЬ 3 Мультимодал/Аналитика: `qwq-plus` · `qvq-max` · `qwen3.5-omni-plus` · `qwen3.5-omni-flash` · `qwen-omni-turbo`
+  - УРОВЕНЬ 4 Медиа: `qwen-image-3.0-pro` · `qwen-image-2.0-pro` · `wan3.0-video` · `happyhorse-1.1-i2v` · `z-image-turbo`
 
 ## ЭТАП 1 — White-Label UI Core (`src/lib/tensorlogix-ui/`, MIT)
 - Canvas-компонент `BipyramidCore`: вращающаяся прозрачная удлинённая бипирамида

@@ -1,6 +1,7 @@
 # SPECIFICATION — TensorLogix v2.0 (PIVOT от 24.08.2026)
 
-> Статус: **ДЕЙСТВУЮЩЕЕ ТЗ v2.0**. LIGHT MATRIX и мультиарендность АННУЛИРОВАНЫ.
+> Статус: **ДЕЙСТВУЮЩЕЕ ТЗ v3.0** (24.08.2026, DeepSeek-v4-Pro). LIGHT MATRIX, мультиарендность
+> и сторонние платные пакеты АННУЛИРОВАНЫ. Собственный open-source скилл + контекст-защита.
 > Дизайн-система: `DESIGN.md` (DEEP DARK CMS). Open-source скилл: `src/lib/tensorlogix-ui/` (MIT).
 
 ## 1. Концепция
@@ -92,8 +93,28 @@
 - Open-source: `src/lib/tensorlogix-ui/` (MIT) — README EN+RU, LICENSE.
 - Паблиш: публичный репозиторий GitHub `tensorlogix` (весь проект).
 
+## 9. Защита контекста и токен-роутер (context-guard, MIT)
+- `.clineignore` в корне блокирует чтение в контекст: `node_modules/`, `.next/`, `dist/`, `build/`,
+  `*.log`, `.git/`, `screenshots/`.
+- Жёсткий регламент: огромные выводы терминала и логи сборок запрещено читать без `headroom compress`.
+- `src/lib/context-guard/token-router.ts` — локальный прокси Cline: ведёт бюджет токенов сессии и при
+  пороге **1 000 000** токенов подменяет ID модели в теле запроса на эконом-уровень.
+- 4-уровневая иерархия моделей (квоты владельца):
+  1. **УРОВЕНЬ 1 — Core** (до 1M): `deepseek-v4-pro-0813` (активная), `deepseek-v4-pro`,
+     `qwen3.7-max`, `qwen-max`, `qwen3-max` — тяжёлый бэкенд, WebGL, архитектура.
+  2. **УРОВЕНЬ 2 — Эконом-роутинг** (после 1M): `deepseek-v4-flash`, `deepseek-v4-flash-0731`,
+     `kimi-k3`, `kimi-k2.7-code`, `qwen3.7-plus`, `qwen3.7-flash`, `qwen3-coder-plus`,
+     `qwen3.6-plus`, `glm-5.2`, `glm-5.1` — базовая вёрстка и простые правки.
+  3. **УРОВЕНЬ 3 — Мультимодальный/Аналитический**: `qwq-plus`, `qvq-max`, `qwen3.5-omni-plus`,
+     `qwen3.5-omni-flash`, `qwen-omni-turbo` — анализ сложных логов, сквозное UI-тестирование.
+  4. **УРОВЕНЬ 4 — Графика/Медиа** (внешние эндпоинты): `qwen-image-3.0-pro`, `qwen-image-2.0-pro`,
+     `wan3.0-video`, `happyhorse-1.1-i2v`, `z-image-turbo` — ИИ-генерация баннеров селлерам.
+
 ## 8. Журнал решений
 - #1–#7 — история v1.0 (частично аннулирована pivot'ом).
 - #8–#11 — UI-01/логотип/CMS/DigitalRain v2 (LIGHT MATRIX-часть аннулирована 24.08.2026).
 - #12 PIVOT v2.0: DEEP DARK + open-source скилл @tensorlogix/ui-core (MIT); новая структура
   лендинга (блоки 0–4) и калькулятор v2; паблиш на GitHub.
+- #13 PIVOT v3.0 (24.08.2026): аннулированы сторонние платные пакеты; собственный open-source скилл
+  `@tensorlogix/ui-core` (MIT); `.clineignore` + токен-роутер `context-guard` (4 уровня моделей,
+  порог 1M токенов); дефолт-модель DeepSeek-v4-Pro; паблиш всего проекта как Fullstack-шаблона.

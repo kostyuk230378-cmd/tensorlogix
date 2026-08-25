@@ -1,7 +1,8 @@
 # HANDOFF — TensorLogix / NEXTJS_TMA_MALL_V10_1 (PIVOT v2.0)
 
-> Обновлено: 24.08.2026 — PIVOT v2.0: DEEP DARK + open-source скилл @tensorlogix/ui-core (MIT);
-> лендинг пересобран (блоки 0–4); коммит `b03b587` зафиксирован и ОПУБЛИКОВАН на GitHub.
+> Обновлено: 24.08.2026 — PIVOT v3.0: DEEP DARK + собственный open-source скилл `@tensorlogix/ui-core`
+> (MIT); лендинг пересобран (блоки 0–4); context-guard токен-роутер (4 уровня моделей);
+> коммит `b03b587` зафиксирован и ОПУБЛИКОВАН на GitHub.
 
 ## Что строим
 - Единый Fullstack-монорепозиторий Next.js (App Router): сайт + TMA + админка.
@@ -10,6 +11,9 @@
 - АННУЛИРОВАНО (решение #12): LIGHT MATRIX, мультиарендность, калькулятор v1, промо-баннер.
 
 ## Прогресс
+- [x] ЭТАП 0: context-guard — `.clineignore`; `src/lib/context-guard/token-router.ts`
+  (4-уровневый роутер моделей, порог 1M токенов, CLI `--status/--record/--intercept/--reset`); жёсткий
+  headroom-регламент в `.clinerules` §0 и control.md
 - [x] ЭТАП 1: `src/lib/tensorlogix-ui/` — `BipyramidCore` (Canvas-3D удлинённая бипирамида,
   нейросвязи, hover-реакция скорости/свечения, prefers-reduced-motion), `NeonCTA`,
   `styles.css` (neon-glow, хром/сталь, лучи `tlx-beam`), README EN+RU, LICENSE MIT
